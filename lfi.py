@@ -179,8 +179,8 @@ def output(options, response, payload):
 	if len(options['mcode']) == 0 and len(options['mlen']) == 0 and len(options['mword']) == 0 and len(options['hcode']) == 0 and len(options['hlen']) == 0 and len(options['hword']) == 0:
 		print(f"[+] len: {len(response.text):5}     code: {response.status_code}     payload: {payload}")
 	else:
-		hidden_filter(options, response, payload)
 		matcher_filter(options, response, payload)
+		hidden_filter(options, response, payload)
 
 
 def fuzz_wrapper(options):
@@ -269,7 +269,7 @@ def main():
 		opts, args = getopt.getopt(sys.argv[1:], "hu:H:c:X:d:e:r:p:m:", ["help", "url=", "delay=", "timeout=", "cookie=", "data=", "depth=", "encode=", "auth=", "proxy=", "mc=", "ml=", "mw=", "hc=", "hl=", "hw=", "mode="])
 	except getopt.GetoptError as e:
 		print(e)
-		sys.exit(2)
+		sys.exit(0)
 	for opt, arg in opts:
 		if opt == '-h' or opt == '--help':
 			help()
@@ -279,7 +279,10 @@ def main():
 		elif opt == '-H':
 			options['headers'].update(json.loads(arg))
 		elif opt == '--delay':
-			options['delay'] = int(arg)
+			if int(arg) < 0:
+				options['delay'] = 0
+			else:
+				options['delay'] = int(arg)
 		elif opt == '--timeout':
 			options['timeout'] = int(arg)
 		elif opt == '-c' or opt == '--cookie':
@@ -291,8 +294,12 @@ def main():
 		elif opt == '-d' or opt == '--data':
 			options['data'] = arg
 		elif opt == '--depth':
-			options['depth'] = int(arg)
+			if int(arg) <= 0:
+				options['depth'] = 5
+			else:
+				options['depth'] = int(arg)
 		elif opt == '-e' or opt == '--encode':
+			print(arg)
 			options['encode'] = arg
 		elif opt == '--auth':
 			options['auth'] = HTTPBasicAuth(arg.split('&')[0], arg.split('&')[1])
