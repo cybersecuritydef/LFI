@@ -32,7 +32,7 @@ def banner(options):
 	print(f"Payload...............: {options['payload']}")
 	print(f"Mode..................: {options['mode']}")
 	if options['data'] is not None:
-		print(f"data..............: {options['data']}")	
+		print(f"data..................: {options['data']}")	
 	if options['auth'] is not None:
 		print(f"auth..............: {options['auth']}")
 	if options['encode'] is not None:
@@ -270,11 +270,12 @@ def main():
 			   	"payload": "etc/passwd",
 			   	"headers": {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:143.0) Gecko/20100101 Firefox/143.0", "Accept": "*/*", "Accept-Language": "*", "Accept-Encoding": "*"}}
 	try:
-		opts, args = getopt.getopt(sys.argv[1:], "hu:H:c:X:d:e:r:p:m:", ["help", "url=", "delay=", "timeout=", "cookie=", "data=", "depth=", "encode=", "auth=", "proxy=", "mc=", "ml=", "mw=", "hc=", "hl=", "hw=", "mode="])
+		opts, args = getopt.getopt(sys.argv[1:], "hu:H:c:X:d:e:rp:m:", ["help", "url=", "delay=", "timeout=", "cookie=", "data=", "depth=", "encode=", "auth=", "proxy=", "mc=", "ml=", "mw=", "hc=", "hl=", "hw=", "mode="])
 	except getopt.GetoptError as e:
 		print(e)
-		sys.exit(0)
-	for opt, arg in opts:
+		exit(2)
+
+	for opt, arg in opts:		
 		if opt == '-h' or opt == '--help':
 			help()
 			exit(0)
@@ -282,6 +283,20 @@ def main():
 			options['url'] = arg
 		elif opt == '-H':
 			options['headers'].update(json.loads(arg))
+		elif opt == '-c' or opt == '--cookie':
+			options['cookies'] = json.loads(arg)
+		elif opt == '-X':
+			options['method'] = arg.upper()
+		elif opt == '-d' or opt == '--data':
+			options['data'] = arg
+		elif opt == '-e' or opt == '--encode':
+			options['encode'] = arg
+		elif opt == '-r':
+			options['redirect'] = True
+		elif opt == '-p':
+		  	options['payload'] = arg
+		elif opt == '-m' or opt == '--mode':
+			options['mode'] = arg
 		elif opt == '--delay':
 			if int(arg) < 0:
 				options['delay'] = 0
@@ -289,28 +304,15 @@ def main():
 				options['delay'] = int(arg)
 		elif opt == '--timeout':
 			options['timeout'] = int(arg)
-		elif opt == '-c' or opt == '--cookie':
-			options['cookies'] = json.loads(arg)
-		elif opt == '-X':
-			options['method'] = arg.upper()
-		elif opt == '-p':
-		  	options['payload'] = arg
-		elif opt == '-d' or opt == '--data':
-			options['data'] = arg
 		elif opt == '--depth':
 			if int(arg) <= 0:
 				options['depth'] = 5
 			else:
 				options['depth'] = int(arg)
-		elif opt == '-e' or opt == '--encode':
-			print(arg)
-			options['encode'] = arg
 		elif opt == '--auth':
 			options['auth'] = HTTPBasicAuth(arg.split('&')[0], arg.split('&')[1])
 		elif opt == '--proxy':
 			options['proxy'] = json.loads(arg)
-		elif opt == '-r':
-			options['redirect'] = True
 		elif opt == '--mc':
 			options['mcode'] += parse_filter_int(arg)
 		elif opt == '--ml':
@@ -324,8 +326,6 @@ def main():
 		elif opt == '--hw':
 			options['hword'] += arg.split(',')
 			print(options['hword'])
-		elif opt == '-m' or opt == '--mode':
-			options['mode'] = arg
 			
 	banner(options)
 	start = datetime.datetime.now()
