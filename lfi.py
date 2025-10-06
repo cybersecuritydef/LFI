@@ -125,24 +125,30 @@ def is_matcher_word(words, strings):
 
 def output(options, response, payload):
 	if len(options['mcode']) == 0 and len(options['mlen']) == 0 and len(options['mword']) == 0 and len(options['hcode']) == 0 and len(options['hlen']) == 0 and len(options['hword']) == 0:
-		print(f"[+] len: {len(response.text):5}     code: {response.status_code}     payload: {payload}")
+		print(f"[+] len: {len(response.text):5}     code: {response.status_code}     payload: {payload}")		
 	elif len(options['hcode']) > 0 and response.status_code not in options['hcode'] and len(options['hword']) == 0 and len(options['hlen']) == 0:
 		print(f"[+] len: {len(response.text):5}     code: {response.status_code}     payload: {payload}")
 	elif len(options['hcode']) > 0 and response.status_code not in options['hcode'] and len(options['hlen']) > 0 and len(response.text) in options['hlen'] and len(options['hword']) == 0:
 		print(f"[+] len: {len(response.text):5}     code: {response.status_code}     payload: {payload}")
 	elif len(options['hcode']) > 0 and response.status_code not in options['hcode'] and len(options['hword']) > 0 and is_matcher_word(options['hword'], response.text) == False and len(options['hlen']) == 0:
+		print(f"[+] len: {len(response.text):5}     code: {response.status_code}     payload: {payload}")
+	elif len(options['hcode']) > 0 and response.status_code not in options['hcode'] and len(options['hword']) > 0 and is_matcher_word(options['hword'], response.text) == False and len(options['hlen']) > 0 and len(response.text) in options['hlen']:
 		print(f"[+] len: {len(response.text):5}     code: {response.status_code}     payload: {payload}")		
-	elif len(options['hlen']) > 0 and len(response.text) in options['hlen'] and len(options['hword']) == 0 and len(options['hcode']) == 0:
+	elif len(options['hlen']) > 0 and len(response.text) not in options['hlen'] and len(options['hword']) == 0 and len(options['hcode']) == 0:
 		print(f"[+] len: {len(response.text):5}     code: {response.status_code}     payload: {payload}")
-	elif len(options['hlen']) > 0 and len(response.text) in options['hlen'] and len(options['hcode']) > 0 and response.status_code not in options['hcode'] and len(options['hword']) == 0:
+	elif len(options['hlen']) > 0 and len(response.text) not in options['hlen'] and len(options['hcode']) > 0 and response.status_code not in options['hcode'] and len(options['hword']) == 0:
 		print(f"[+] len: {len(response.text):5}     code: {response.status_code}     payload: {payload}")
-	elif len(options['hlen']) > 0 and len(response.text) in options['hlen'] and len(options['hword']) > 0 and is_matcher_word(options['hword'], response.text) == False and len(options['hlen']) == 0:
+	elif len(options['hlen']) > 0 and len(response.text) not in options['hlen'] and len(options['hword']) > 0 and is_matcher_word(options['hword'], response.text) == False and len(options['hcode']) == 0:
+		print(f"[+] len: {len(response.text):5}     code: {response.status_code}     payload: {payload}")
+	elif len(options['hlen']) > 0 and len(response.text) not in options['hlen'] and len(options['hword']) > 0 and is_matcher_word(options['hword'], response.text) == False and len(options['hcode']) > 0 and response.status_code not in options['hcode']:
 		print(f"[+] len: {len(response.text):5}     code: {response.status_code}     payload: {payload}")		
 	elif len(options['hword']) > 0 and is_matcher_word(options['hword'], response.text) == False and len(options['hcode']) == 0 and len(options['hlen']) == 0:
 		print(f"[+] len: {len(response.text):5}     code: {response.status_code}     payload: {payload}")
 	elif len(options['hword']) > 0 and is_matcher_word(options['hword'], response.text) == False and len(options['hcode']) > 0 and response.status_code not in options['hcode'] and len(options['hlen']) == 0:
 		print(f"[+] len: {len(response.text):5}     code: {response.status_code}     payload: {payload}")
 	elif len(options['hword']) > 0 and is_matcher_word(options['hword'], response.text) == False and len(options['hlen']) > 0 and len(response.text) not in options['hlen'] and len(options['hcode']) == 0:
+		print(f"[+] len: {len(response.text):5}     code: {response.status_code}     payload: {payload}")
+	elif len(options['hword']) > 0 and is_matcher_word(options['hword'], response.text) == False and len(options['hlen']) > 0 and len(response.text) not in options['hlen'] and len(options['hcode']) > 0 and response.status_code not in options['hcode']:
 		print(f"[+] len: {len(response.text):5}     code: {response.status_code}     payload: {payload}")
 
 	
