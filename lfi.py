@@ -99,7 +99,6 @@ def urlencode(data):
 	return enc
 	
 
-
 def make_payload(options, payload):
 	url = ""
 	if options['encode'] == 'urlencode':
@@ -120,7 +119,6 @@ def is_matcher_word(words, strings):
 		if w in strings:
 			return True
 	return False
-
 
 
 def hidden_filter(options, response, payload):
@@ -184,8 +182,6 @@ def output(options, response, payload):
 		hidden_filter(options, response, payload)
 		matcher_filter(options, response, payload)
 
-	
-		
 
 def fuzz_wrapper(options):
 	list_wrapper = ["php://filter/convert.base64-encode/resource=",
