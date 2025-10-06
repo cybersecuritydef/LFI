@@ -126,34 +126,27 @@ def is_matcher_word(words, strings):
 def output(options, response, payload):
 	if len(options['mcode']) == 0 and len(options['mlen']) == 0 and len(options['mword']) == 0 and len(options['hcode']) == 0 and len(options['hlen']) == 0 and len(options['hword']) == 0:
 		print(f"[+] len: {len(response.text):5}     code: {response.status_code}     payload: {payload}")
-	elif len(options['mcode']) > 0 and response.status_code in options['mcode']:
-		if len(options['mlen']) > 0 and len(response.text) in options['mlen'] or len(options['mword']) > 0 and is_matcher_word(options['mword'], response.text) or len(options['hcode']) > 0 and response.status_code not in options['hcode'] or len(options['hlen']) > 0 and len(response.text) not in options['hlen'] or len(options['hword']) > 0 and is_matcher_word(options['hword'], response.text) == False:
-			print(f"[+] len: {len(response.text):5}     code: {response.status_code}     payload: {payload}")
-		else:
-			print(f"[+] len: {len(response.text):5}     code: {response.status_code}     payload: {payload}")
-	elif len(options['mlen']) > 0 and len(response.text) in options['mlen']:
-		if len(options['mword']) > 0 and is_matcher_word(options['mword'], response.text) or len(options['hcode']) > 0 and response.status_code not in options['hcode'] or len(options['hlen']) > 0 and len(response.text) not in options['hlen'] or len(options['hword']) > 0 and is_matcher_word(options['hword'], response.text) == False:
-			print(f"[+] len: {len(response.text):5}     code: {response.status_code}     payload: {payload}")
-		else:
-			print(f"[+] len: {len(response.text):5}     code: {response.status_code}     payload: {payload}")
-	elif len(options['mword']) > 0 and is_matcher_word(options['mword'], response.text):
-		if len(options['hcode']) > 0 and response.status_code not in options['hcode'] or len(options['hlen']) > 0 and len(response.text) not in options['hlen'] or len(options['hword']) > 0 and is_matcher_word(options['hword'], response.text) == False:
-			print(f"[+] len: {len(response.text):5}     code: {response.status_code}     payload: {payload}")
-		else:
-			print(f"[+] len: {len(response.text):5}     code: {response.status_code}     payload: {payload}")
-	elif len(options['hcode']) > 0 and response.status_code not in options['hcode']:
-		if len(options['hlen']) > 0 and len(response.text) not in options['hlen'] or len(options['hword']) > 0 and is_matcher_word(options['hword'], response.text) == False: 
-			print(f"[+] len: {len(response.text):5}     code: {response.status_code}     payload: {payload}")
-		else:
-			print(f"[+] len: {len(response.text):5}     code: {response.status_code}     payload: {payload}")
-	elif len(options['hlen']) > 0 and len(response.text) not in options['hlen']:
-		if len(options['hword']) > 0 and response.text not in options['hword']:			
-			print(f"[+] len: {len(response.text):5}     code: {response.status_code}     payload: {payload}")
-		else:
-			print(f"[+] len: {len(response.text):5}     code: {response.status_code}     payload: {payload}")
-	elif len(options['hword']) > 0 and is_matcher_word(options['hword'], response.text) == False:
+	elif len(options['hcode']) > 0 and response.status_code not in options['hcode'] and len(options['hword']) == 0 and len(options['hlen']) == 0:
+		print(f"[+] len: {len(response.text):5}     code: {response.status_code}     payload: {payload}")
+	elif len(options['hcode']) > 0 and response.status_code not in options['hcode'] and len(options['hlen']) > 0 and len(response.text) in options['hlen'] and len(options['hword']) == 0:
+		print(f"[+] len: {len(response.text):5}     code: {response.status_code}     payload: {payload}")
+	elif len(options['hcode']) > 0 and response.status_code not in options['hcode'] and len(options['hword']) > 0 and is_matcher_word(options['hword'], response.text) == False and len(options['hlen']) == 0:
+		print(f"[+] len: {len(response.text):5}     code: {response.status_code}     payload: {payload}")		
+	elif len(options['hlen']) > 0 and len(response.text) in options['hlen'] and len(options['hword']) == 0 and len(options['hcode']) == 0:
+		print(f"[+] len: {len(response.text):5}     code: {response.status_code}     payload: {payload}")
+	elif len(options['hlen']) > 0 and len(response.text) in options['hlen'] and len(options['hcode']) > 0 and response.status_code not in options['hcode'] and len(options['hword']) == 0:
+		print(f"[+] len: {len(response.text):5}     code: {response.status_code}     payload: {payload}")
+	elif len(options['hlen']) > 0 and len(response.text) in options['hlen'] and len(options['hword']) > 0 and is_matcher_word(options['hword'], response.text) == False and len(options['hlen']) == 0:
+		print(f"[+] len: {len(response.text):5}     code: {response.status_code}     payload: {payload}")		
+	elif len(options['hword']) > 0 and is_matcher_word(options['hword'], response.text) == False and len(options['hcode']) == 0 and len(options['hlen']) == 0:
+		print(f"[+] len: {len(response.text):5}     code: {response.status_code}     payload: {payload}")
+	elif len(options['hword']) > 0 and is_matcher_word(options['hword'], response.text) == False and len(options['hcode']) > 0 and response.status_code not in options['hcode'] and len(options['hlen']) == 0:
+		print(f"[+] len: {len(response.text):5}     code: {response.status_code}     payload: {payload}")
+	elif len(options['hword']) > 0 and is_matcher_word(options['hword'], response.text) == False and len(options['hlen']) > 0 and len(response.text) not in options['hlen'] and len(options['hcode']) == 0:
 		print(f"[+] len: {len(response.text):5}     code: {response.status_code}     payload: {payload}")
 
+	
+		
 
 def fuzz_wrapper(options):
 	list_wrapper = ["php://filter/convert.base64-encode/resource=",
@@ -273,15 +266,15 @@ def main():
 		elif opt == '-r':
 			options['redirect'] = True
 		elif opt == '--mc':
-			options['mcode'] += parse_filter(arg)
+			options['mcode'] += parse_filter_int(arg)
 		elif opt == '--ml':
-			options['mlen'] += parse_filter(arg)
+			options['mlen'] += parse_filter_int(arg)
 		elif opt == '--mw':
 			options['mword'] += arg.split(',')
 		elif opt == '--hc':
-			options['hcode'] += parse_filter(arg)
+			options['hcode'] += parse_filter_int(arg)
 		elif opt == '--hl':
-			options['hlen'] += parse_filter(arg)
+			options['hlen'] += parse_filter_int(arg)
 		elif opt == '--hw':
 			options['hword'] += arg.split(',')
 			print(options['hword'])
