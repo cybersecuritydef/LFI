@@ -72,7 +72,7 @@ def help():
 	print("\t--timeout     Request timeout in seconds. default:10")
 	print("\t--auth        Auth basic \"admin&test\"")
 	print("\t--enocde      Encode payload (base64 | urlencode | durlencode)")
-	print("\t--depth       Depth of repetitions default:5")
+	print("\t--depth       Depth of repetitions LFI default:5")
 	print("\t--mc          Matcher response code (200,301,400-403)")
 	print("\t--ml          Matcher response length content (456,1024,568-700)")
 	print("\t--mw          Matcher response words text (root)")
