@@ -237,10 +237,14 @@ def fuzz_lfi(options):
 def parse_filter_int(value):
 	code = list()
 	for v in value.split(','):
-		if v.find('-') != -1:
-			code.append(range(int(v.split('-')[0]), int(v.split('-')[1]) + 1))
-		else:
-			code.append(int(v))
+		try:
+			if v.find('-') != -1:
+				code.append(range(int(v.split('-')[0]), int(v.split('-')[1]) + 1))
+			else:
+				code.append(int(v))
+		except ValueError as e:
+			print(f"\n[-] Error filter: {v}")
+			exit(0)
 	return code
 			
 			
