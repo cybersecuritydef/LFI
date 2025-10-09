@@ -224,13 +224,13 @@ def fuzz_lfi(options):
 			except KeyboardInterrupt:
 				return False
 			except requests.exceptions.ConnectTimeout:
-				print(f"[-] ConnectTimeout: {opts['url']}")
+				print(f"[-] ConnectTimeout: {options['url']}")
 			except requests.exceptions.Timeout:
-				print(f"[-] Timeout: {opts['url']}")
+				print(f"[-] Timeout: {options['url']}")
 			except requests.exceptions.ProxyError:
-				print(f"[-] Failed to connect to the proxy: {opts['proxy']}")
+				print(f"[-] Failed to connect to the proxy: {options['proxy']}")
 			except requests.exceptions.ConnectionError:
-				print(f"[-] Connect error: {opts['url']}")
+				print(f"[-] Connect error: {options['url']}")
 	return True
 			
 
